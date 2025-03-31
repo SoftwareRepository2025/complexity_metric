@@ -16,7 +16,7 @@ We have three important datasets in this experiment:
 
 #### Raw Data:
 - 35 participants
-- 20 `.cnt` files (named `si_j`, where `i=1:20` for participants and `j=1:4` for runs)
+- 35`.cnt` files (named `si_j`, where `i=1:20` for participants and `j=1:4` for runs)
 
 #### Preprocessing:
 Preprocessing was performed using **EEGLAB**, an interactive MATLAB toolbox. The following steps were applied:
@@ -24,15 +24,15 @@ Preprocessing was performed using **EEGLAB**, an interactive MATLAB toolbox. The
 - **Filtering**: 
   - High-pass filter at 1 Hz
   - Low-pass filter at 40 Hz
-- **Data cleaning**:
-  - Deleting useless segments
-  - Manual interpolation
+- **Channels spatial interpolation**:
+  - Remove flat or noisy channels
+  - Replace them with interpolated signals from remaining channels
 - **Referencing**: Average reference
 - **ICA (Independent Component Analysis)**: Extended Infomax using `runica`
 - **Artifact removal**: Manually operated
 
 #### Final Structure:
-The processed EEG data is stored in `eeg_data.mat` and contains 20 structs, one for each participant. Each struct is named `si_tj` (where `i=1:20` for participants, `j=1:4` for tasks). The struct contains the following fields:
+The processed EEG data is stored in `eeg_data.mat` and contains 35 structs, one for each participant. Each struct is named `si_tj` (where `i=1:` for participants, `j=1:4` for tasks). The struct contains the following fields:
 - `eeg_data_struct.(field_name).feature`: Two features extracted from the data
 - `eeg_data_struct.(field_name).time`: Corresponding time data
 
@@ -43,8 +43,11 @@ The processed EEG data is stored in `eeg_data.mat` and contains 20 structs, one 
 - 35 `.mat` files
 
 #### Preprocessing:
-- Filtering invalid data points
-- Calibration against code task images
+- Artifact Removal
+- Missing Data Handling
+- Filtering
+- Coordinate Mapping
+- Resampling
 
 #### Final Structure:
 The processed eye tracking data is stored in `eye_data.mat`, which contains 35 structs for 35 participants. Each struct is named `si_tj` (where `i=1:35` for participants, `j=1:4` for tasks). The struct contains the following fields:
